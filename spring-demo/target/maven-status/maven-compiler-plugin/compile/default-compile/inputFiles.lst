@@ -1,0 +1,6 @@
+/home/shain/elk/spring-demo/src/main/java/com/example/elkspringdemo/ElkSpringDemoApplication.java
+/home/shain/elk/spring-demo/src/main/java/com/example/elkspringdemo/config/AsyncConfig.java
+/home/shain/elk/spring-demo/src/main/java/com/example/elkspringdemo/controller/DemoController.java
+/home/shain/elk/spring-demo/src/main/java/com/example/elkspringdemo/entity/UserActivity.java
+/home/shain/elk/spring-demo/src/main/java/com/example/elkspringdemo/repository/UserActivityRepository.java
+/home/shain/elk/spring-demo/src/main/java/com/example/elkspringdemo/service/LogGeneratorService.java

@@ -1,0 +1,90 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /sample-logs/app.log
+  fields:
+    log_type: application
+    app_name: sample-app
+    env: development
+  fields_under_root: false
+
+- type: log
+  enabled: true
+  paths:
+    - /sample-logs/nginx-access.log
+  fields:
+    log_type: nginx_access
+  fields_under_root: false
+
+- type: log
+  enabled: true
+  paths:
+    - /sample-logs/nginx-error.log
+  fields:
+    log_type: nginx_error
+  fields_under_root: false
+
+# Spring Boot Demo 日志收集
+- type: log
+  enabled: true
+  paths:
+    - /var/log/spring-demo/*.log
+  fields:
+    log_type: spring_boot
+    app_name: elk-spring-demo
+    service: spring-boot
+    env: development
+  fields_under_root: false
+  multiline.pattern: '^\d{4}-\d{2}-\d{2}'
+  multiline.negate: true
+  multiline.match: after
+  json.keys_under_root: true
+  json.add_error_key: true
+
+# 输出到Logstash
+output.logstash:
+  hosts: ["logstash:5044"]
+
+# Kibana设置保持不变（用于模板管理）
+setup.kibana:
+  host: "kibana:5601"
+  username: "elastic"
+  password: "elastic123456"
+
+# 模板设置
+setup.template:
+  name: "filebeat"
+  pattern: "filebeat-*"
+  enabled: false  # 禁用模板自动设置，让Logstash处理
+
+# ILM设置
+setup.ilm.enabled: false
+
+# 监控设置
+http.enabled: true
+http.port: 5066
+
+# 日志级别
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /usr/share/filebeat/logs
+  name: filebeat
+  keepfiles: 7
+  permissions: 0644
+
+# 性能优化设置
+queue.mem:
+  events: 4096
+  flush.min_events: 512
+  flush.timeout: 5s
+
+processors:
+  - add_host_metadata:
+      when.not.contains.tags: forwarded
+  - add_fields:
+      target: '@metadata'
+      fields:
+        beat: filebeat
+        type: log
