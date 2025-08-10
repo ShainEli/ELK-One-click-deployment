@@ -23,7 +23,7 @@
 
 ### **环境要求**
 
-```
+``` text
     Linux发行版
     Docker 20.10+
     Docker Compose 2.0+
@@ -32,7 +32,7 @@
 ```
 ## **项目结构**
 
-```
+``` text
 elk/
 ├── docker-compose.yml              # Docker Compose 主配置
 ├── README.md                       # 项目文档
@@ -69,7 +69,7 @@ elk/
 
 ## **数据流向**
 
-```
+``` text
 应用日志 → Logstash → Elasticsearch → Kibana
     ↓          ↓           ↓          ↓
   多协议输入   数据处理    索引存储    可视化展示
@@ -77,7 +77,7 @@ elk/
 
 ### **一键部署**
 
-```
+``` bash
 # 1. 启动 ELK Stack
 ./scripts/setup-complete.sh
 
@@ -89,7 +89,7 @@ elk/
 
 创建 `.env` 文件进行个性化配置：
 
-```
+``` bash
 # ELK 版本
 ELK_VERSION=8.19.1
 
@@ -120,7 +120,7 @@ LOGSTASH_TCP_PORT=5000
 
 **访问地址**: [http://localhost:9200](http://localhost:9200/) **认证方式**: HTTP Basic Auth (elastic / your_password)
 
-```
+``` bash
 # 集群健康状态
 curl -u elastic:your_password http://localhost:9200/_cluster/health
 
@@ -130,7 +130,7 @@ curl -u elastic:your_password http://localhost:9200/_cat/indices?v
 
 ### **Kibana 控制台**
 
-**访问地址**: [http://localhost:5601](http://localhost:5601/) **登录账号**: elastic / your_password
+**访问地址**: [http://localhost:5601](http://localhost:5601/) **登录账号**: `elastic/your_password`
 
 ### **Logstash 管理API**
 
@@ -149,7 +149,7 @@ curl -u elastic:your_password http://localhost:9200/_cat/indices?v
 
 ### **Logback 配置 (logback-spring.xml)**
 
-```
+``` xml
 <configuration>
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>localhost:5000</destination>
@@ -174,7 +174,7 @@ curl -u elastic:your_password http://localhost:9200/_cat/indices?v
 
 ### **依赖添加 (pom.xml)**
 
-```
+``` xml
 <dependency>
 
     <groupId>net.logstash.logback</groupId>
@@ -190,21 +190,21 @@ curl -u elastic:your_password http://localhost:9200/_cat/indices?v
 
 ### **verify.sh - 服务验证**
 
-```
+``` bash
 # 检查容器运行状态，验证服务连通性，显示集群健康信息
 ./scripts/verify.sh
 ```
 
 ### **cleanup.sh - 环境清理**
 
-```
+``` bash
 # 停止所有服务，可选删除数据卷，清理日志文件
 ./scripts/cleanup.sh
 ```
 
 ### **setup-complete.sh - 完整部署**
 
-```
+``` bash
 # 完整的环境初始化和自动配置
 ./scripts/setup-complete.sh
 ```
@@ -227,7 +227,7 @@ curl -u elastic:your_password http://localhost:9200/_cat/indices?v
 
 #### **容器启动失败**
 
-```
+``` bash
 # 检查日志
 docker-compose logs elasticsearch
 docker-compose logs logstash
@@ -236,7 +236,7 @@ docker-compose logs kibana
 
 #### **内存不足**
 
-```
+``` bash
 # 编辑 .env 文件，减少 JVM 堆内存
 ES_JAVA_OPTS=-Xms1g -Xmx1g
 LS_JAVA_OPTS=-Xms512m -Xmx512
@@ -244,7 +244,7 @@ LS_JAVA_OPTS=-Xms512m -Xmx512
 
 #### **认证失败**
 
-```
+``` bash
 # 重置密码
 docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
 ```
@@ -259,7 +259,7 @@ docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-reset-p
 
 ### **内存调优**
 
-```
+``` bash
 # .env 文件中调整 JVM 堆内存
 ES_JAVA_OPTS=-Xms4g -Xmx4g  # 建议设置为物理内存的一半
 LS_JAVA_OPTS=-Xms2g -Xmx2g
