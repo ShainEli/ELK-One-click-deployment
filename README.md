@@ -1,7 +1,6 @@
 # ELK Stack 8.19.1 Docker 部署方案
 
-> 企业级 ELK (Elasticsearch + Logstash + Kibana) 日志分析平台
-> 基于 Docker Compose 快速部署，内置安全认证，专为 Spring Boot 应用优化
+> 基于 Docker Compose 快速部署, 企业级 ELK (Elasticsearch + Logstash + Kibana) 日志分析平台
 
 [![ELK Version](https://img.shields.io/badge/ELK-8.19.1-blue)](https://www.elastic.co/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-blue)](https://docs.docker.com/compose/)
