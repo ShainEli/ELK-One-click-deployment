@@ -1,0 +1,12 @@
+Aug 10 10:00:01 web-server systemd[1]: Started Daily apt download activities.
+Aug 10 10:00:01 web-server systemd[1]: Starting Daily apt download activities...
+Aug 10 10:00:15 web-server kernel: [12345.678901] CPU: 0 PID: 1234 Comm: java Not tainted 5.4.0-74-generic #83-Ubuntu
+Aug 10 10:01:00 web-server cron[1001]: (root) CMD (run-parts /etc/cron.hourly)
+Aug 10 10:02:30 web-server sshd[2001]: Accepted publickey for admin from 192.168.1.10 port 22 ssh2: RSA SHA256:abc123def456
+Aug 10 10:03:45 web-server systemd[1]: Started Session 5 of user admin.
+Aug 10 10:05:00 web-server docker[3001]: time="2025-08-10T10:05:00.123456789Z" level=info msg="Container started" containerID=abc123def456 containerName=web-api
+Aug 10 10:06:15 web-server docker[3001]: time="2025-08-10T10:06:15.987654321Z" level=warning msg="Container health check failed" containerID=def456ghi789 containerName=database retries=1
+Aug 10 10:08:00 web-server systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Aug 10 10:08:00 web-server systemd[1]: docker.service: Failed with result 'exit-code'.
+Aug 10 10:08:01 web-server systemd[1]: Stopped Docker Application Container Engine.
+Aug 10 10:08:02 web-server systemd[1]: Started Docker Application Container Engine.

@@ -91,6 +91,37 @@ services:
       timeout: 10s
       retries: 5
 
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:${ELK_VERSION:-8.19.1}
+    container_name: filebeat
+    user: root
+    environment:
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-elastic123456}
+    volumes:
+      - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./filebeat/data:/usr/share/filebeat/data
+      - ./filebeat/logs:/usr/share/filebeat/logs
+      # 挂载主机日志目录
+      - /var/log:/var/log:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # 示例日志目录
+      - ./sample-logs:/sample-logs:ro
+    ports:
+      - "${FILEBEAT_HTTP_PORT:-5066}:5066"
+    networks:
+      - elk-network
+    depends_on:
+      logstash:
+        condition: service_healthy
+    restart: unless-stopped
+    command: ["filebeat", "-e"]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5066 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
 networks:
   elk-network:
     driver: bridge

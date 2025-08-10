@@ -1,0 +1,11 @@
+2025/08/10 10:00:00 [notice] 1#1: nginx/1.21.6
+2025/08/10 10:00:00 [notice] 1#1: built by gcc 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2)
+2025/08/10 10:00:01 [notice] 1#1: OS: Linux 5.4.0-74-generic
+2025/08/10 10:00:01 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025/08/10 10:00:01 [notice] 1#1: start worker processes
+2025/08/10 10:00:01 [notice] 1#1: start worker process 7
+2025/08/10 10:02:30 [error] 7#7: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.1.102, server: localhost, request: "GET /api/users HTTP/1.1", upstream: "http://127.0.0.1:8080/api/users", host: "localhost"
+2025/08/10 10:04:15 [error] 7#7: *2 upstream prematurely closed connection while reading response header from upstream, client: 192.168.1.103, server: localhost, request: "POST /api/orders HTTP/1.1", upstream: "http://127.0.0.1:8080/api/orders", host: "localhost"
+2025/08/10 10:06:45 [warn] 7#7: *3 upstream server temporarily disabled while reading response header from upstream, client: 192.168.1.104, server: localhost, request: "GET /api/products HTTP/1.1", upstream: "http://127.0.0.1:8080/api/products", host: "localhost"
+2025/08/10 10:08:20 [error] 7#7: *4 recv() failed (104: Connection reset by peer) while reading response header from upstream, client: 192.168.1.105, server: localhost, request: "PUT /api/products/123 HTTP/1.1", upstream: "http://127.0.0.1:8080/api/products/123", host: "localhost"
+2025/08/10 10:12:10 [error] 7#7: *5 upstream timed out (110: Connection timed out) while connecting to upstream, client: 192.168.1.106, server: localhost, request: "POST /api/payment HTTP/1.1", upstream: "http://127.0.0.1:8080/api/payment", host: "localhost"

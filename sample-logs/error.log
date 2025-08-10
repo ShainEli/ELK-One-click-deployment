@@ -1,0 +1,10 @@
+[2025-08-10 10:00:00] ERROR: Database connection failed - Host 'db.example.com' is not reachable
+[2025-08-10 10:02:15] CRITICAL: Out of memory exception in module 'user_management'
+[2025-08-10 10:05:30] ERROR: Failed to send email notification - SMTP server timeout
+[2025-08-10 10:08:45] WARNING: High CPU usage detected - Usage: 95% for 5 minutes
+[2025-08-10 10:12:00] ERROR: Payment gateway API returned HTTP 500 - Internal Server Error
+[2025-08-10 10:15:20] FATAL: Application crash detected - Segmentation fault in module 'data_processor'
+[2025-08-10 10:18:35] ERROR: File system full - Unable to write log files to /var/log/
+[2025-08-10 10:22:10] WARNING: SSL certificate expires in 7 days - Domain: api.example.com
+[2025-08-10 10:25:45] ERROR: Redis connection lost - Connection refused on port 6379
+[2025-08-10 10:28:00] CRITICAL: Security breach detected - Unauthorized access attempt from IP 192.168.1.200

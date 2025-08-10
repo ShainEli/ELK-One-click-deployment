@@ -1,0 +1,14 @@
+{"timestamp":"2025-08-10T10:00:00.000Z","level":"INFO","service":"web-api","message":"应用启动成功","version":"2.1.0","pid":1234,"thread":"main"}
+{"timestamp":"2025-08-10T10:01:00.000Z","level":"INFO","service":"web-api","message":"数据库连接成功","database":"mysql","connection_pool":"10","thread":"db-init"}
+{"timestamp":"2025-08-10T10:02:00.000Z","level":"INFO","service":"web-api","message":"缓存服务启动","cache_type":"redis","memory":"512MB","thread":"cache-init"}
+{"timestamp":"2025-08-10T10:05:00.000Z","level":"INFO","service":"web-api","message":"用户登录成功","user_id":"user123","ip":"192.168.1.100","session":"sess_abc123","thread":"http-nio-8080-exec-1"}
+{"timestamp":"2025-08-10T10:06:30.000Z","level":"DEBUG","service":"web-api","message":"SQL查询执行","query":"SELECT * FROM users WHERE id=?","params":"[123]","duration":"15ms","thread":"http-nio-8080-exec-2"}
+{"timestamp":"2025-08-10T10:07:00.000Z","level":"INFO","service":"web-api","message":"订单创建","order_id":"ORD001","user_id":"user123","amount":"99.99","currency":"CNY","thread":"http-nio-8080-exec-3"}
+{"timestamp":"2025-08-10T10:08:15.000Z","level":"WARN","service":"web-api","message":"数据库连接缓慢","response_time":"2.5s","threshold":"2.0s","database":"mysql","thread":"http-nio-8080-exec-4"}
+{"timestamp":"2025-08-10T10:10:00.000Z","level":"WARN","service":"web-api","message":"内存使用率较高","memory_usage":"85%","gc_count":"5","heap_size":"1024MB","thread":"memory-monitor"}
+{"timestamp":"2025-08-10T10:12:30.000Z","level":"ERROR","service":"web-api","message":"支付接口调用失败","error":"connection timeout","order_id":"ORD002","payment_gateway":"alipay","retry_count":"3","thread":"payment-processor"}
+{"timestamp":"2025-08-10T10:15:00.000Z","level":"ERROR","service":"web-api","message":"数据库连接丢失","error":"Connection reset by peer","connection_id":"conn_456","auto_reconnect":"true","thread":"db-connection-monitor"}
+{"timestamp":"2025-08-10T10:18:00.000Z","level":"INFO","service":"web-api","message":"系统健康检查","status":"healthy","uptime":"18m","active_sessions":"25","thread":"health-checker"}
+{"timestamp":"2025-08-10T10:20:00.000Z","level":"INFO","service":"web-api","message":"用户退出登录","user_id":"user123","session_duration":"15m","thread":"http-nio-8080-exec-5"}
+{"timestamp":"2025-08-10T10:22:00.000Z","level":"INFO","service":"web-api","message":"定时任务执行","task":"data_cleanup","duration":"2.3s","records_processed":"1500","thread":"scheduled-task-1"}
+{"timestamp":"2025-08-10T10:25:00.000Z","level":"FATAL","service":"web-api","message":"系统崩溃","error":"OutOfMemoryError","heap_dump":"heap_dump_20250810_1025.hprof","thread":"main"}

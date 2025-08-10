@@ -44,6 +44,4 @@ pipeline.plugin_classloaders: false
 
 # API配置
 api.enabled: true
-# api.http.host: 0.0.0.0  # 删除重复配置，上面已配置
-# api.http.port: 9600     # 删除重复配置，上面已配置
 api.environment: production
