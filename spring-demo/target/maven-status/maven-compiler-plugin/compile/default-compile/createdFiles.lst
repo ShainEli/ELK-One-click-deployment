@@ -1,6 +1,0 @@
-com/example/elkspringdemo/controller/DemoController.class
-com/example/elkspringdemo/service/LogGeneratorService.class
-com/example/elkspringdemo/repository/UserActivityRepository.class
-com/example/elkspringdemo/entity/UserActivity.class
-com/example/elkspringdemo/config/AsyncConfig.class
-com/example/elkspringdemo/ElkSpringDemoApplication.class
