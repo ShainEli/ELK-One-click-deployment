@@ -1,0 +1,102 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION:-8.19.1}
+    container_name: elasticsearch
+    environment:
+      - node.name=${ES_NODE_NAME:-elasticsearch}
+      - cluster.name=${ES_CLUSTER_NAME:-elk-cluster}
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=${ES_JAVA_OPTS:--Xms1g -Xmx1g}"
+      - xpack.security.enabled=${XPACK_SECURITY_ENABLED:-true}
+      - xpack.security.enrollment.enabled=false
+      - xpack.security.http.ssl.enabled=${XPACK_SECURITY_HTTP_SSL_ENABLED:-false}
+      - xpack.security.transport.ssl.enabled=${XPACK_SECURITY_TRANSPORT_SSL_ENABLED:-false}
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-elastic123456}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/logs:/usr/share/elasticsearch/logs
+    ports:
+      - "${ELASTICSEARCH_PORT:-9200}:9200"
+      - "9300:9300"
+    networks:
+      - elk-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f -u elastic:${ELASTIC_PASSWORD:-elastic123456} http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:${ELK_VERSION:-8.19.1}
+    container_name: logstash
+    environment:
+      - "LS_JAVA_OPTS=${LS_JAVA_OPTS:--Xms512m -Xmx512m}"
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=${LOGSTASH_USER:-logstash_system}
+      - ELASTICSEARCH_PASSWORD=${LOGSTASH_PASSWORD:-logstash123456}
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+      - ./logstash/logs:/usr/share/logstash/logs
+    ports:
+      - "${LOGSTASH_BEATS_PORT:-5044}:5044"
+      - "${LOGSTASH_TCP_PORT:-5000}:5000/tcp"
+      - "${LOGSTASH_TCP_PORT:-5000}:5000/udp"
+      - "9600:9600"
+    networks:
+      - elk-network
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9600 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:${ELK_VERSION:-8.19.1}
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=${KIBANA_USER:-kibana_system}
+      - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD:-kibana123456}
+      - SERVER_NAME=${KIBANA_SERVER_NAME:-kibana}
+      - SERVER_HOST=${KIBANA_SERVER_HOST:-0.0.0.0}
+    volumes:
+      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+      - ./kibana/data:/usr/share/kibana/data
+      - ./kibana/logs:/usr/share/kibana/logs
+    ports:
+      - "${KIBANA_PORT:-5601}:5601"
+    networks:
+      - elk-network
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5601/login || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+networks:
+  elk-network:
+    driver: bridge
+
+volumes:
+  elasticsearch-data:
+    driver: local
+  kibana-data:
+    driver: local

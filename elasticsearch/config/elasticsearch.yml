@@ -1,0 +1,50 @@
+# Elasticsearch 8.19.1 配置文件
+# 集群配置
+cluster.name: elk-cluster
+node.name: elasticsearch
+
+# 网络配置
+network.host: 0.0.0.0
+http.port: 9200
+transport.port: 9300
+
+# 发现配置
+discovery.type: single-node
+
+# 路径配置
+path.data: /usr/share/elasticsearch/data
+path.logs: /usr/share/elasticsearch/logs
+
+# 内存配置
+bootstrap.memory_lock: true
+
+# 安全配置 (启用密码认证)
+xpack.security.enabled: true
+xpack.security.enrollment.enabled: false
+xpack.security.http.ssl.enabled: false
+xpack.security.transport.ssl.enabled: false
+
+# 监控配置
+xpack.monitoring.collection.enabled: true
+
+# 索引配置
+action.auto_create_index: true
+action.destructive_requires_name: true
+
+# 日志配置
+logger.level: INFO
+
+# 性能优化配置
+indices.memory.index_buffer_size: 10%
+indices.memory.min_index_buffer_size: 48mb
+
+# HTTP配置
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+http.cors.allow-headers: "Authorization,X-Requested-With,Content-Length,Content-Type"
+
+# 集群健康检查
+cluster.routing.allocation.disk.threshold_enabled: true
+cluster.routing.allocation.disk.watermark.low: 85%
+cluster.routing.allocation.disk.watermark.high: 90%
+cluster.routing.allocation.disk.watermark.flood_stage: 95%

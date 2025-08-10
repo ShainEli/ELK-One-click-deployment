@@ -1,0 +1,20 @@
+# Kibana 8.19.1 配置文件
+
+# 服务器配置
+server.port: 5601
+server.host: "0.0.0.0"
+
+# Elasticsearch配置
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+elasticsearch.username: "kibana_system"
+elasticsearch.password: "kibana123456"
+
+# 国际化配置
+i18n.locale: "zh-CN"
+
+# 禁用遥测
+telemetry.enabled: false
+telemetry.optIn: false
+
+# 加密配置
+xpack.encryptedSavedObjects.encryptionKey: "something_at_least_32_characters_long_for_encryption"

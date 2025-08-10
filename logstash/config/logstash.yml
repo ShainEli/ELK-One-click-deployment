@@ -1,0 +1,49 @@
+# Logstash 8.19.1 配置文件
+# 节点配置
+node.name: logstash
+
+# 路径配置
+path.data: /usr/share/logstash/data
+path.logs: /usr/share/logstash/logs
+path.settings: /usr/share/logstash/config
+
+# Pipeline 配置
+pipeline.workers: 2
+pipeline.batch.size: 125
+pipeline.batch.delay: 50
+
+# HTTP API 配置
+api.http.host: "0.0.0.0"
+api.http.port: 9600
+
+# 日志配置
+log.level: info
+log.format: plain
+
+# 监控配置
+xpack.monitoring.enabled: true
+xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
+xpack.monitoring.elasticsearch.username: "logstash_system"
+xpack.monitoring.elasticsearch.password: "logstash123456"
+
+# 配置重载
+config.reload.automatic: true
+config.reload.interval: 3s
+
+# 队列配置
+queue.type: memory
+queue.max_events: 0
+queue.max_bytes: 1gb
+
+# 死信队列配置
+dead_letter_queue.enable: false
+
+# 性能配置
+pipeline.unsafe_shutdown: false
+pipeline.plugin_classloaders: false
+
+# API配置
+api.enabled: true
+# api.http.host: 0.0.0.0  # 删除重复配置，上面已配置
+# api.http.port: 9600     # 删除重复配置，上面已配置
+api.environment: production
